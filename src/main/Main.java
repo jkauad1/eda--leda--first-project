@@ -1,6 +1,8 @@
 package main;
 
+import classes.Busca;
 import classes.Filme;
+import interfaces.Busca_IF;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +21,16 @@ public class Main {
         for (Filme m : filmes){
             lista.add(m);
         }
+
+        Busca_IF busca = new Busca();
+        Filme filmeEncontrado;
+        filmeEncontrado = busca.buscaLinearRecursiva(filmes, 8);
+
+            if (filmeEncontrado != null) {
+                System.out.println("Filme encontrado: " + filmeEncontrado);
+            } else {
+                System.out.println("Filme não encontrado.");
+            }
 
         System.out.println("Ordem original: " +
                             lista);
