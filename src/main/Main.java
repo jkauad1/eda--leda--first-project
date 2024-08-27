@@ -2,6 +2,7 @@ package main;
 
 import classes.Busca;
 import classes.Filme;
+import classes.Ordenacao;
 import interfaces.Busca_IF;
 
 import java.util.ArrayList;
@@ -17,10 +18,20 @@ public class Main {
         Filme[] filmes = {filme1, filme2, filme3};
 
         List<Filme> lista = new ArrayList<>();
+        Ordenacao ordenador = new Ordenacao();
 
         for (Filme m : filmes){
             lista.add(m);
         }
+
+        int size = 10000;
+
+        for(int i = 0; i < size; i++){  // For para a criação de de pessoas e adicionar a lista de acordo com o "size";
+            Filme p = new Filme();
+            lista.add(p);
+        }
+
+
 
         Busca_IF busca = new Busca();
         Filme filmeEncontrado;
@@ -32,11 +43,10 @@ public class Main {
                 System.out.println("Filme não encontrado.");
             }
 
-        System.out.println("Ordem original: " +
-                            lista);
+        System.out.println("Ordem original: " + lista);
 
         System.out.println("Ordem organizada: ");
-        Collections.sort(lista);
+        ordenador.bubbleSort(lista);
         System.out.println(lista);
         }
     }
