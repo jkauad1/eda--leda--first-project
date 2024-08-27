@@ -1,6 +1,6 @@
 package classes;
 
-public class AlgoritmosDeOrdenacao {
+public class Ordenacao {
 
     public void bubbleSort (int lista[]){
         for (int i = 0; i < lista.length; i++){
