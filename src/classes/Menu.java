@@ -5,40 +5,64 @@ import java.util.*;
 public class Menu {
     public static void menu(){
 
-        System.out.println("1 - Procurar filme" +
-                           "2 - Ordenar filmes." +
-                           "3 - Gerar filmes." +
-                           "8 - Encerrar programa.");
+        List<Filme> filmes = new ArrayList<>();
+        Ordenacao ordenador = new Ordenacao();
 
-        int sair = 1;
+        label:
+        while (true){
+            System.out.println("1 - Ordenar filmes" +
+                    "\n2 - Procurar filmes." +
+                    "\n3 - Gerar filmes." +
+                    "\n4 - Printar filmes" +
+                    "\n8 - Encerrar programa.");
 
-        List<Filme> filmes = null;
-
-        while (sair != 0){
             int menu = leitor.nextInt();
-
             switch (menu){
                 case 1:
 
+                    System.out.println("Deseja ordenar por qual método: \n1- BubbleSort \n2- InsertionSort \n3- MergeSort");
+                    menu = leitor.nextInt();
+
+                        switch (menu){
+                            case 1:
+                                ordenador.bubbleSort(filmes);
+                                System.out.println("Filmes ordenados com bubbleSort");
+                                break;
+                            case 2:
+                                ordenador.insertionSort(filmes);
+                                System.out.println("Filmes ordenados com insertionSort");
+                                break;
+                            case 3:
+                                ordenador.mergeSort(filmes);
+                                System.out.println("Filmes ordenados com mergeSort");
+                                break;
+                            default:
+                                System.out.println("Número inválido, digite um dos números do menu");
+                                break;
+                        }
                 case 2:
-                    ordenaFilmes(filmes);
                     break;
                 case 3:
                     filmes = geraFilmes();
                     break;
                 case 4:
-                    for (int i = 0; i < filmes.size(); i++){
-                        System.out.println(filmes.get(i));
+                    for (Filme f : filmes) {
+                        System.out.println(f);
                     }
+                    break;
+
+                default:
+                    System.out.println("Número inválido, digite um dos números do menu");
+                    break;
                 case 8:
-                    sair = 0;
+                    break label;
             }
         }
     }
 
-    public static  Scanner leitor = new Scanner(System.in);
+    public static Scanner leitor = new Scanner(System.in);
 
-    public static List<Filme> geraFilmes(){
+    private static List<Filme> geraFilmes(){
         List<Filme> filmes = new ArrayList<>();
 
         System.out.println("Informe quantos filmes você deseja gerar: ");
@@ -52,13 +76,4 @@ public class Menu {
         return filmes;
     }
 
-    public static List<Filme> ordenaFilmes(List<Filme> listaDeFilmes){
-        if (listaDeFilmes == null){
-            System.out.println("Não há nenhum filme para ordenar.");
-        }
-        else {
-            Collections.sort(listaDeFilmes);
-        }
-        return listaDeFilmes;
-    }
 }

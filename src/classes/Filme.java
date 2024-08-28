@@ -8,8 +8,8 @@ public class Filme implements Comparable<Filme> {
     private int ano;
     public static Random rand = new Random();
 
-    private static String[] Titulos = {"Era do Gelo: ", "Piratas do Caribe: ", "Rei Leão: ", "Velozes e Furiosos: ", "Mad Max: ", "O Vendedor de Linguiça: ", "Os Vingadores: ", "Tropa de Elite:", "Cidade de Deus: ", "JheffersonKauã: ", "Transformers: ", "Ratatouille: ", "Pitú: "};
-    private static String[] SubTitulos = {"A História de uma abelha", "A era de ultron", "A vingança dos derrotados", "O lado escuro da lua", "Desafio na UEPB", "uma noite muito louca", "Sexo com Proteção", "Prisioneiro de Azkaban", "Câmara Secreta", "A Pedra Filosofal", "Trair é errado"};
+    private static final String[] Titulos = {"Era do Gelo: ", "Piratas do Caribe: ", "Rei Leão: ", "Velozes e Furiosos: ", "Mad Max: ", "O Vendedor de Linguiça: ", "Os Vingadores: ", "Tropa de Elite:", "Cidade de Deus: ", "JheffersonKauã: ", "Transformers: ", "Ratatouille: ", "Pitú: "};
+    private static final String[] SubTitulos = {"A História de uma abelha", "A era de ultron", "A vingança dos derrotados", "O lado escuro da lua", "Desafio na UEPB", "uma noite muito louca", "Sexo com Proteção", "Prisioneiro de Azkaban", "Câmara Secreta", "A Pedra Filosofal", "Trair é errado"};
     public Filme(String nome, int nota, int ano) {
         this.nome = nome;
         this.nota = nota;
@@ -19,11 +19,12 @@ public class Filme implements Comparable<Filme> {
     public Filme(){
         this.nome = Titulos[rand.nextInt(Titulos.length)] + SubTitulos[rand.nextInt(SubTitulos.length)];
         this.ano = rand.nextInt(1980, 2025);
-        this.nota = rand.nextInt(1,5);
+        this.nota = rand.nextInt(1,6);
     }
 
+    @Override
     public String toString(){
-        return "\nNome: " + this.nome + " (" + this.ano + ")" + " Nota: " + this.nota;
+        return "Nome: " + this.nome + " (" + this.ano + ")" + " Nota: " + this.nota;
     }
 
     @Override

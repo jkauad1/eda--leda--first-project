@@ -1,4 +1,5 @@
 package classes;
+import java.util.ArrayList;
 import java.util.List;
 public class Ordenacao {
 
@@ -29,5 +30,46 @@ public class Ordenacao {
             }
             filmes.set(j + 1, key);
         }
+    }
+
+    public void mergeSort(List<Filme> filmes){
+        int n = filmes.size();
+        if  (n <= 1){
+            return;
+        }
+        else {
+            int mid = filmes.size() / 2;
+            List<Filme> left = new ArrayList<>(filmes.subList(0, mid));
+            List<Filme> right = new ArrayList<>(filmes.subList(mid, n));
+
+            mergeSort(left);
+            mergeSort(right);
+
+            filmes.clear();
+            filmes.addAll(merge(left, right));
+        }
+
+    }
+
+    private List<Filme> merge(List<Filme> left, List<Filme> right){
+        int i = 0, j = 0;
+        List<Filme> result = new ArrayList<>();
+
+        while (i < left.size() && j < right.size()){
+            if(left.get(i).compareTo(right.get(j)) <= 0){
+                result.add(left.get(i++));
+            }
+            else{
+                result.add(right.get(j++));
+            }
+        }
+        while (i < left.size()){
+            result.add(left.get(i++));
+        }
+        while (j < right.size()){
+            result.add(right.get(j++));
+        }
+
+        return result;
     }
 }
