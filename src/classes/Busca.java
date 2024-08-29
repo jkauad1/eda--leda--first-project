@@ -41,10 +41,9 @@ public class Busca implements Busca_IF {
             int meio_da_lista = (final_da_lista + inicio_da_lista) / 2;
 
             if (filmes.get(meio_da_lista).getNota() == nota ){
-                System.out.println("Comparando nota: " + filmes.get(meio_da_lista).getNota() + " com " + nota);
                 return filmes.get(meio_da_lista);
-            } else if (filmes.get(meio_da_lista).getNota() > nota) {
-                final_da_lista = meio_da_lista + -1;
+            } else if (filmes.get(meio_da_lista).getNota() < nota) {
+                final_da_lista = meio_da_lista - 1;
             }
             else {
                 inicio_da_lista = meio_da_lista + 1;
@@ -60,19 +59,20 @@ public class Busca implements Busca_IF {
 
     public Filme buscaBinariaRecursivaAux(List<Filme> filmes, int nota, int inicio_da_lista, int final_da_lista) {
 
-        if (inicio_da_lista > final_da_lista){
+        if (inicio_da_lista > final_da_lista) {
             return null;
         }
 
         int meio_da_lista = (final_da_lista + inicio_da_lista) / 2;
 
-        if (filmes.get(meio_da_lista).getNota() == nota){
+        if (filmes.get(meio_da_lista).getNota() == nota) {
             return filmes.get(meio_da_lista);
         }
-        if (filmes.get(meio_da_lista).getNota() > nota){
+        if (filmes.get(meio_da_lista).getNota() > nota) {
             return buscaBinariaRecursivaAux(filmes, nota, meio_da_lista + 1, final_da_lista);
         } else {
             return buscaBinariaRecursivaAux(filmes, nota, inicio_da_lista, meio_da_lista - 1);
         }
+
     }
 }
