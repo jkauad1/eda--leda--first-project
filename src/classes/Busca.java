@@ -68,10 +68,10 @@ public class Busca implements Busca_IF {
         if (filmes.get(meio_da_lista).getNota() == nota) {
             return filmes.get(meio_da_lista);
         }
-        if (filmes.get(meio_da_lista).getNota() > nota) {
-            return buscaBinariaRecursivaAux(filmes, nota, meio_da_lista + 1, final_da_lista);
-        } else {
+        if (filmes.get(meio_da_lista).getNota() < nota) {
             return buscaBinariaRecursivaAux(filmes, nota, inicio_da_lista, meio_da_lista - 1);
+        } else {
+            return buscaBinariaRecursivaAux(filmes, nota, meio_da_lista + 1, final_da_lista);
         }
 
     }
