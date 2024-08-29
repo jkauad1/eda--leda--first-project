@@ -48,6 +48,7 @@ public class Menu {
                                 System.out.println("Número inválido, digite um dos números do menu");
                                 break;
                         }
+                        break;
                 case 2:
                     System.out.println("Qual método de busca deseja usar: \n1- Busca Linear iterativa" +
                             "\n2- Busca Linear recursiva" +
@@ -62,14 +63,16 @@ public class Menu {
 
                     switch (menu){
                         case 1:
-                            resultado = buscador.buscaLinearIterativa(filmes,nota);
+                            resultado = buscador.buscaLinearIterativa(filmes, nota);
                             break;
                         case 2:
                             resultado = buscador.buscaLinearRecursiva(filmes, nota);
                             break;
                         case 3:
+                            resultado = buscador.buscaBinariaIterativa(filmes, nota);
                             break;
                         case 4:
+                            resultado = buscador.buscaBinariaRecursiva(filmes, nota);
                             break;
                         default:
                             System.out.println("Número inválido, digite um dos números do menu");

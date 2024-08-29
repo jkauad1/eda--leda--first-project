@@ -33,31 +33,32 @@ public class Busca implements Busca_IF {
     }
 
     @Override
-    public Filme buscaBinariaIterativa(Filme[] filmes, int nota) {
+    public Filme buscaBinariaIterativa(List<Filme> filmes, int nota) {
         int inicio_da_lista = 0;
-        int final_da_lista = filmes.length - 1;
+        int final_da_lista = filmes.size() - 1;
 
         while (inicio_da_lista <= final_da_lista){
             int meio_da_lista = (final_da_lista + inicio_da_lista) / 2;
 
-            if (filmes[meio_da_lista].getNota() == nota ){
-                return filmes[meio_da_lista];
-            } else if (filmes[meio_da_lista].getNota() < nota) {
-                inicio_da_lista = meio_da_lista + 1;
+            if (filmes.get(meio_da_lista).getNota() == nota ){
+                System.out.println("Comparando nota: " + filmes.get(meio_da_lista).getNota() + " com " + nota);
+                return filmes.get(meio_da_lista);
+            } else if (filmes.get(meio_da_lista).getNota() > nota) {
+                final_da_lista = meio_da_lista + -1;
             }
             else {
-                final_da_lista = meio_da_lista - 1;
+                inicio_da_lista = meio_da_lista + 1;
             }
         }
         return null;
     }
 
     @Override
-    public Filme buscaBinariaRecursiva(Filme[] filmes, int nota) {
-        return buscaBinariaRecursivaAux(filmes, nota, 0, (filmes.length  - 1));
+    public Filme buscaBinariaRecursiva(List<Filme> filmes, int nota) {
+        return buscaBinariaRecursivaAux(filmes, nota, 0, (filmes.size()  - 1));
     }
 
-    public Filme buscaBinariaRecursivaAux(Filme[] filmes, int nota, int inicio_da_lista, int final_da_lista) {
+    public Filme buscaBinariaRecursivaAux(List<Filme> filmes, int nota, int inicio_da_lista, int final_da_lista) {
 
         if (inicio_da_lista > final_da_lista){
             return null;
@@ -65,10 +66,10 @@ public class Busca implements Busca_IF {
 
         int meio_da_lista = (final_da_lista + inicio_da_lista) / 2;
 
-        if (filmes[meio_da_lista].getNota() == nota){
-            return filmes[meio_da_lista];
+        if (filmes.get(meio_da_lista).getNota() == nota){
+            return filmes.get(meio_da_lista);
         }
-        if (filmes[meio_da_lista].getNota() < nota){
+        if (filmes.get(meio_da_lista).getNota() > nota){
             return buscaBinariaRecursivaAux(filmes, nota, meio_da_lista + 1, final_da_lista);
         } else {
             return buscaBinariaRecursivaAux(filmes, nota, inicio_da_lista, meio_da_lista - 1);
