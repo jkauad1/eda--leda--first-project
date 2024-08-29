@@ -1,12 +1,18 @@
 package classes;
 
+import interfaces.Busca_IF;
+
 import java.util.*;
 
 public class Menu {
+
+    public static final Scanner leitor = new Scanner(System.in);
+
     public static void menu(){
 
         List<Filme> filmes = new ArrayList<>();
         Ordenacao ordenador = new Ordenacao();
+        Busca_IF buscador = new Busca();
 
         label:
         while (true){
@@ -20,7 +26,9 @@ public class Menu {
             switch (menu){
                 case 1:
 
-                    System.out.println("Deseja ordenar por qual método: \n1- BubbleSort \n2- InsertionSort \n3- MergeSort");
+                    System.out.println("Deseja ordenar por qual método: \n1- BubbleSort " +
+                            "\n2- InsertionSort " +
+                            "\n3- MergeSort");
                     menu = leitor.nextInt();
 
                         switch (menu){
@@ -41,6 +49,39 @@ public class Menu {
                                 break;
                         }
                 case 2:
+                    System.out.println("Qual método de busca deseja usar: \n1- Busca Linear iterativa" +
+                            "\n2- Busca Linear recursiva" +
+                            "\n3- Busca Binária iterativa" +
+                            "\n4- Busca Binária recursiva");
+
+                    menu = leitor.nextInt();
+
+                    System.out.println("Por qual nota deseja procurar: (1 - 5)");
+                    int nota = leitor.nextInt();
+                    Filme resultado = null;
+
+                    switch (menu){
+                        case 1:
+                            resultado = buscador.buscaLinearIterativa(filmes,nota);
+                            break;
+                        case 2:
+                            resultado = buscador.buscaLinearRecursiva(filmes, nota);
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            System.out.println("Número inválido, digite um dos números do menu");
+                    }
+
+                    if(resultado != null){
+                        System.out.println("O filme encontrado é: " + resultado);
+                    }
+                    else{
+                        System.out.println("Filme não encontrado!");
+                    }
+
                     break;
                 case 3:
                     filmes = geraFilmes();
@@ -60,17 +101,17 @@ public class Menu {
         }
     }
 
-    public static Scanner leitor = new Scanner(System.in);
+
 
     private static List<Filme> geraFilmes(){
-        List<Filme> filmes = new ArrayList<>();
 
         System.out.println("Informe quantos filmes você deseja gerar: ");
         int quantidadeDeFilmes = leitor.nextInt();
 
+        List<Filme> filmes = new ArrayList<>(quantidadeDeFilmes);
+
         for (int i = 0; i < quantidadeDeFilmes; i++){
-            Filme filme = new Filme();
-            filmes.add(filme);
+            filmes.add(new Filme());
         }
 
         return filmes;

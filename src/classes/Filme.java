@@ -1,15 +1,16 @@
 package classes;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Filme implements Comparable<Filme> {
+
     private String nome;
     private int nota;
     private int ano;
-    public static Random rand = new Random();
 
     private static final String[] Titulos = {"Era do Gelo: ", "Piratas do Caribe: ", "Rei Leão: ", "Velozes e Furiosos: ", "Mad Max: ", "O Vendedor de Linguiça: ", "Os Vingadores: ", "Tropa de Elite:", "Cidade de Deus: ", "JheffersonKauã: ", "Transformers: ", "Ratatouille: ", "Pitú: "};
     private static final String[] SubTitulos = {"A História de uma abelha", "A era de ultron", "A vingança dos derrotados", "O lado escuro da lua", "Desafio na UEPB", "uma noite muito louca", "Sexo com Proteção", "Prisioneiro de Azkaban", "Câmara Secreta", "A Pedra Filosofal", "Trair é errado"};
+
     public Filme(String nome, int nota, int ano) {
         this.nome = nome;
         this.nota = nota;
@@ -17,9 +18,11 @@ public class Filme implements Comparable<Filme> {
     }
 
     public Filme(){
+        ThreadLocalRandom rand = ThreadLocalRandom.current();
+
         this.nome = Titulos[rand.nextInt(Titulos.length)] + SubTitulos[rand.nextInt(SubTitulos.length)];
-        this.ano = rand.nextInt(1980, 2025);
-        this.nota = rand.nextInt(1,6);
+        this.ano = rand.nextInt(1980, 2025); // Gera um ano aleatório entre 1980 e 2024
+        this.nota = rand.nextInt(1, 6); // Gera uma nota aleatória entre 1 e 5 (inclusive)
     }
 
     @Override

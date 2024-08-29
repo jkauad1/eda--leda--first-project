@@ -2,29 +2,32 @@ package classes;
 
 import interfaces.Busca_IF;
 
+import java.util.List;
+
 public class Busca implements Busca_IF {
 
     @Override
-    public Filme buscaLinearIterativa(Filme[] filmes, int nota) {
-        for (int i = 0; i < filmes.length; i++){
-            if (filmes[i].getNota() == nota){
-                return filmes[i];
+        public Filme buscaLinearIterativa(List<Filme> filmes, int nota) {
+
+        for (Filme f: filmes){
+            if(f.getNota() == nota){
+                return f;
             }
         }
-        return null;
+        return null;// implementar erro
     }
 
     @Override
-    public Filme buscaLinearRecursiva(Filme[] filmes, int nota) {
-        return null;
+    public Filme buscaLinearRecursiva(List<Filme> filmes, int nota) {
+        return buscaLinearRecursivaAux(filmes, nota, 0);
     }
 
-    private Filme buscaLinearRecursivaAux(Filme[] filmes, int nota, int indice) {
-        if (indice > filmes.length){
-            return null;
+    private Filme buscaLinearRecursivaAux(List<Filme> filmes, int nota, int indice) {
+        if (indice > filmes.size()){
+            return null; // implementar excpetion
         }
-        if (filmes[indice].getNota() == nota){
-            return filmes[indice];
+        if (filmes.get(indice).getNota() == nota){
+            return filmes.get(indice);
         }
         return buscaLinearRecursivaAux(filmes, nota, indice + 1);
     }
