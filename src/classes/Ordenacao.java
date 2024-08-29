@@ -32,9 +32,19 @@ public class Ordenacao {
         }
     }
 
-    public void selectionSort(List<Filme>filmes){
-
+    public void selectionSort(List<Filme> filmes){
+        int n = filmes.size();
+        for (int i = 0; i < n - 1; i++) {
+            int min = i;
+            for(int j = i + 1; j < n; j++) {
+                if(filmes.get(j).getNota() < filmes.get(min).getNota()) {
+                    min = j;
+                }
+            }
+            swap(filmes, i, min);
+        }
     }
+
     public void mergeSort(List<Filme> filmes){
         int n = filmes.size();
         if  (n <= 1){
@@ -75,4 +85,36 @@ public class Ordenacao {
 
         return result;
     }
+
+
+
+    public void quickSort(List<Filme>filmes, int left,int right){
+        if(left < right){
+            int pivot = partition(filmes, left, right);
+            quickSort(filmes, left, pivot - 1);
+            quickSort(filmes, pivot + 1, right);
+        }
+    }
+
+    private int partition(List<Filme>filmes, int left, int right) {
+        int pivot = filmes.get(left).getNota();
+        int i = left + 1;
+        int j = right;
+        while(i <= j) {
+            if(filmes.get(i).getNota() <= pivot){
+                i++;
+            } else if(filmes.get(j).getNota() > pivot){
+                j--;
+            }else{
+                swap(filmes, i, j);
+
+            }
+        }
+        return j;
+    }
+
+
+
 }
+
+
