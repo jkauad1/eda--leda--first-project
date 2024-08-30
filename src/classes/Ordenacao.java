@@ -86,35 +86,34 @@ public class Ordenacao {
         return result;
     }
 
-
-
-    public void quickSort(List<Filme>filmes, int left,int right){
-        if(left < right){
+    public void quickSort(List<Filme> filmes, int left, int right) {
+        if (left < right) {
             int pivot = partition(filmes, left, right);
             quickSort(filmes, left, pivot - 1);
             quickSort(filmes, pivot + 1, right);
         }
     }
 
-    private int partition(List<Filme>filmes, int left, int right) {
+    private int partition(List<Filme> filmes, int left, int right) {
         int pivot = filmes.get(left).getNota();
-        int i = left + 1;
+        int i = left;
         int j = right;
-        while(i <= j) {
-            if(filmes.get(i).getNota() <= pivot){
-                i++;
-            } else if(filmes.get(j).getNota() > pivot){
-                j--;
-            }else{
-                swap(filmes, i, j);
 
+        while (i < j) {
+
+            while (i <= right && filmes.get(i).getNota() >= pivot) {
+                i++;
+            }
+            while (j >= left && filmes.get(j).getNota() < pivot) {
+                j--;
+            }
+            if (i < j) {
+                swap(filmes, i, j);
             }
         }
+        swap(filmes, left, j);
         return j;
     }
-
-
-
 }
 
 

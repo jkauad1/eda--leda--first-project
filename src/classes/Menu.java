@@ -16,7 +16,7 @@ public class Menu {
 
         label:
         while (true){
-            System.out.println("1 - Ordenar filmes" +
+            System.out.println("1 - Ordenar filmes." +
                     "\n2 - Procurar filmes." +
                     "\n3 - Gerar filmes." +
                     "\n4 - Printar filmes" +
@@ -26,38 +26,43 @@ public class Menu {
             switch (menu){
                 case 1:
 
-                    System.out.println("Deseja ordenar por qual método: \n1- BubbleSort " +
+                    System.out.println("Selecione o método que deseja usar: \n1- BubbleSort " +
                             "\n2- InsertionSort " +
-                            "\n3- MergeSort");
+                            "\n3- MergeSort" +
+                            "\n4- SelectionSort");
                     menu = leitor.nextInt();
 
                         switch (menu){
                             case 1:
                                 ordenador.bubbleSort(filmes);
-                                System.out.println("Filmes ordenados com bubbleSort");
+                                System.out.println("Filmes ordenados com bubbleSort.");
                                 break;
                             case 2:
                                 ordenador.insertionSort(filmes);
-                                System.out.println("Filmes ordenados com insertionSort");
+                                System.out.println("Filmes ordenados com insertionSort.");
                                 break;
                             case 3:
                                 ordenador.mergeSort(filmes);
-                                System.out.println("Filmes ordenados com mergeSort");
+                                System.out.println("Filmes ordenados com mergeSort.");
+                                break;
+                            case 4:
+                                ordenador.quickSort(filmes, 0, filmes.size() - 1);
+                                System.out.println("Filmes ordenados com quickSort.");
                                 break;
                             default:
-                                System.out.println("Número inválido, digite um dos números do menu");
+                                System.out.println("Número inválido, digite um dos números do menu.");
                                 break;
                         }
                         break;
                 case 2:
-                    System.out.println("Qual método de busca deseja usar: \n1- Busca Linear iterativa" +
-                            "\n2- Busca Linear recursiva" +
-                            "\n3- Busca Binária iterativa" +
-                            "\n4- Busca Binária recursiva");
+                    System.out.println("Selecione o método de busca que deseja usar: \n1- Busca Linear iterativa." +
+                            "\n2- Busca Linear recursiva." +
+                            "\n3- Busca Binária iterativa." +
+                            "\n4- Busca Binária recursiva.");
 
                     menu = leitor.nextInt();
 
-                    System.out.println("Por qual nota deseja procurar: (1 - 5)");
+                    System.out.println("Selecione a nota que deseja procurar: (1 - 5)");
                     int nota = leitor.nextInt();
                     Filme resultado = null;
 
@@ -75,7 +80,7 @@ public class Menu {
                             resultado = buscador.buscaBinariaRecursiva(filmes, nota);
                             break;
                         default:
-                            System.out.println("Número inválido, digite um dos números do menu");
+                            System.out.println("Número inválido, digite um dos números do menu.");
                     }
 
                     if(resultado != null){
@@ -96,7 +101,7 @@ public class Menu {
                     break;
 
                 default:
-                    System.out.println("Número inválido, digite um dos números do menu");
+                    System.out.println("Número inválido, digite um dos números do menu.");
                     break;
                 case 8:
                     break label;
