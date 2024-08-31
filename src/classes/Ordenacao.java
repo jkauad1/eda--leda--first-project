@@ -114,6 +114,21 @@ public class Ordenacao {
         swap(filmes, left, j);
         return j;
     }
+
+    public static void countingSort(List<Filme> filmes, List<Filme> filmesOrdenados, int notaMaxima) {
+        List<Integer> listaAuxiliar = new ArrayList<>();
+        for (int i = 1; i < notaMaxima + 1; i++) {
+            listaAuxiliar.add(0);
+        }
+        for (Filme filme : filmes) {
+            int nota = filme.getNota();
+            listaAuxiliar.set(nota, listaAuxiliar.get(nota) + 1);
+        }
+
+        for (int i = 0; i < listaAuxiliar.size(); i++) { //Teste pra ver se o código esta correndo como deveria.
+            System.out.println("Índice: " + i + ", Valor: " + listaAuxiliar.get(i));
+        }
+    }
 }
 
 
