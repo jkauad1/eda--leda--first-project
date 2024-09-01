@@ -36,13 +36,13 @@ public class Ordenacao implements Ordenacao_IF {
     public void selectionSort(Filme[] filmes){
         int n = filmes.length;
         for (int i = 0; i < n - 1; i++) {
-            int min = i;
+            int max = i;
             for(int j = i + 1; j < n; j++) {
-                if(filmes[j].getNota() < filmes[min].getNota()) {
-                    min = j;
+                if(filmes[j].getNota() > filmes[max].getNota()) {
+                    max = j;
                 }
             }
-            swap(filmes, i, min);
+            swap(filmes, i, max);
         }
     }
     @Override

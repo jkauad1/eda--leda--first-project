@@ -52,6 +52,11 @@ public class Menu {
 
     private static void ordenaFilmes(Filme[] filmes, Filme[] clone, Ordenacao ordenador){
 
+        if (isEmpty(filmes)){
+            System.out.println("Lista vazia, gere filmes primeiro!");
+            return;
+        }
+
         System.out.println("""
                             Selecione o método que deseja usar:
                             1- BubbleSort
@@ -101,6 +106,12 @@ public class Menu {
     }
 
     private static void procurarFilmes(Filme[] filmes, Busca_IF buscador) throws Exception {
+
+        if (isEmpty(filmes)){
+            System.out.println("Lista vazia, gere filmes primeiro!");
+            return;
+        }
+
         System.out.println("""
                             Selecione o método de busca que deseja usar:
                             1- Busca Linear iterativa.
@@ -146,6 +157,9 @@ public class Menu {
         System.out.println("Informe quantos filmes você deseja gerar: ");
         int quantidadeDeFilmes = leitor.nextInt();
 
+        if (quantidadeDeFilmes == 0){
+            return new Filme[0];
+        }
 
         Filme[] filmes = new Filme[quantidadeDeFilmes];
 
@@ -156,7 +170,16 @@ public class Menu {
         return filmes;
     }
 
+    private static boolean isEmpty(Filme[] filmes) {
+        return filmes == null || filmes.length == 0;
+    }
+
     private static void printFilmes(Filme[] filmes){
+
+        if (isEmpty(filmes)){
+            System.out.println("Lista vazia, gere filmes primeiro!");
+            return;
+        }
 
         if (filmes != null){
             for (Filme f : filmes){
