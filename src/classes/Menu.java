@@ -9,7 +9,7 @@ public class Menu {
     public static final Scanner leitor = new Scanner(System.in);
     public static int menu;
 
-    public static void menu(){
+    public static void menu() throws Exception {
 
         Filme[] filmes = null;
         Filme[] clone = null;
@@ -100,7 +100,7 @@ public class Menu {
         }
     }
 
-    private static void procurarFilmes(Filme[] filmes, Busca_IF buscador){
+    private static void procurarFilmes(Filme[] filmes, Busca_IF buscador) throws Exception {
         System.out.println("""
                             Selecione o método de busca que deseja usar:
                             1- Busca Linear iterativa.
