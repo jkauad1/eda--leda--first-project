@@ -1,7 +1,5 @@
 package main;
 
-import classes.Filme;
-
 import static classes.Menu.menu;
 
 public class Main {

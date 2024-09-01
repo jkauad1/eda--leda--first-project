@@ -87,6 +87,8 @@ public class Menu {
                 System.out.println("Filmes ordenados com quickSort.");
                 break;
             case 6:
+                List<Filme> filmesOrdenados = new ArrayList<>(Collections.nCopies(filmes.size(), null));
+                ordenador.countingSort(filmes, filmesOrdenados, 5);
                 System.out.println("Aguardando pagamento.");
             case 7:
                 filmes.clear();

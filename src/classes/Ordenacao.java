@@ -1,5 +1,6 @@
 package classes;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 public class Ordenacao {
 
@@ -115,18 +116,30 @@ public class Ordenacao {
         return j;
     }
 
-    public static void countingSort(List<Filme> filmes, List<Filme> filmesOrdenados, int notaMaxima) {
-        List<Integer> listaAuxiliar = new ArrayList<>();
-        for (int i = 1; i < notaMaxima + 1; i++) {
+    public static void countingSort(List<Filme> filmes, List<Filme> filmesOrdenados, int notaMaxima){
+        List<Integer> listaAuxiliar = new ArrayList<>(Collections.nCopies(6, 0));
+
+        for (int i = 0; i < filmes.size(); i++){
             listaAuxiliar.add(0);
         }
+
         for (Filme filme : filmes) {
             int nota = filme.getNota();
             listaAuxiliar.set(nota, listaAuxiliar.get(nota) + 1);
         }
 
-        for (int i = 0; i < listaAuxiliar.size(); i++) { //Teste pra ver se o código esta correndo como deveria.
-            System.out.println("Índice: " + i + ", Valor: " + listaAuxiliar.get(i));
+        for (int i = 1; i <= 5; i++) {
+            listaAuxiliar.set(i, listaAuxiliar.get(i) + listaAuxiliar.get(i - 1));
+        }
+
+        for (int i = filmes.size() - 1; i >= 0; i--) {
+            Filme filme = filmes.get(i);
+            int nota = filme.getNota();
+            if (nota >= 1 && nota <= notaMaxima) {
+                int posicao = listaAuxiliar.get(nota) - 1;
+                filmesOrdenados.set(posicao, filme);
+                listaAuxiliar.set(nota, posicao);
+            }
         }
     }
 }
