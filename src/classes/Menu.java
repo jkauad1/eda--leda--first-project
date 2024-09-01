@@ -11,8 +11,8 @@ public class Menu {
 
     public static void menu(){
 
-        List<Filme> filmes = new ArrayList<>();
-        List<Filme> clone = new ArrayList<>();
+        Filme[] filmes = null;
+        Filme[] clone = null;
         Ordenacao ordenador = new Ordenacao();
         Busca_IF buscador = new Busca();
 
@@ -29,7 +29,7 @@ public class Menu {
             switch (menu){
                 case 1:
                     filmes = geraFilmes();
-                    clone = new ArrayList<>(filmes);
+                    clone = filmes.clone();
                     break;
                 case 2:
                     ordenaFilmes(filmes, clone, ordenador);
@@ -50,7 +50,7 @@ public class Menu {
         }
     }
 
-    private static void ordenaFilmes(List<Filme> filmes, List<Filme> clone, Ordenacao ordenador){
+    private static void ordenaFilmes(Filme[] filmes, Filme[] clone, Ordenacao ordenador){
 
         System.out.println("""
                             Selecione o método que deseja usar:
@@ -83,16 +83,15 @@ public class Menu {
                 System.out.println("Filmes ordenados com mergeSort.");
                 break;
             case 5:
-                ordenador.quickSort(filmes, 0, filmes.size()-1);
+                ordenador.quickSort(filmes);
                 System.out.println("Filmes ordenados com quickSort.");
                 break;
             case 6:
-                List<Filme> filmesOrdenados = new ArrayList<>(Collections.nCopies(filmes.size(), null));
-                ordenador.countingSort(filmes, filmesOrdenados, 5);
-                System.out.println("Aguardando pagamento.");
+                ordenador.countingSort(filmes);
+                System.out.println("Filmes ordenados com CountingSort.");
+                break;
             case 7:
-                filmes.clear();
-                filmes.addAll(clone);
+                System.arraycopy(clone, 0, filmes, 0, clone.length);
                 System.out.println("Sequência original restaurada.");
                 break;
             default:
@@ -101,7 +100,7 @@ public class Menu {
         }
     }
 
-    private static void procurarFilmes(List<Filme> filmes, Busca_IF buscador){
+    private static void procurarFilmes(Filme[] filmes, Busca_IF buscador){
         System.out.println("""
                             Selecione o método de busca que deseja usar:
                             1- Busca Linear iterativa.
@@ -118,16 +117,16 @@ public class Menu {
 
         switch (menu){
             case 1:
-                resultado = buscador.buscaLinearIterativa(filmes, nota);
+                resultado = buscador.buscaLinear_iterativa(filmes, nota);
                 break;
             case 2:
-                resultado = buscador.buscaLinearRecursiva(filmes, nota);
+                resultado = buscador.buscaLinear_recursiva(filmes, nota);
                 break;
             case 3:
-                resultado = buscador.buscaBinariaIterativa(filmes, nota);
+                resultado = buscador.buscaBinaria_iterativa(filmes, nota);
                 break;
             case 4:
-                resultado = buscador.buscaBinariaRecursiva(filmes, nota);
+                resultado = buscador.buscaBinaria_recursiva(filmes, nota);
                 break;
             default:
                 System.out.println("Número inválido, digite um dos números do menu.");
@@ -142,24 +141,30 @@ public class Menu {
 
     }
 
-    private static List<Filme> geraFilmes(){
-
+    private static Filme[] geraFilmes() {
+        Scanner leitor = new Scanner(System.in);
         System.out.println("Informe quantos filmes você deseja gerar: ");
         int quantidadeDeFilmes = leitor.nextInt();
 
-        List<Filme> filmes = new ArrayList<>(quantidadeDeFilmes);
 
-        for (int i = 0; i < quantidadeDeFilmes; i++){
-            filmes.add(new Filme());
+        Filme[] filmes = new Filme[quantidadeDeFilmes];
+
+        for (int i = 0; i < quantidadeDeFilmes; i++) {
+            filmes[i] = new Filme();
         }
 
         return filmes;
     }
 
-    private static void printFilmes(List<Filme> filmes){
+    private static void printFilmes(Filme[] filmes){
 
-        for (Filme f : filmes){
-            System.out.println(f);
+        if (filmes != null){
+            for (Filme f : filmes){
+                System.out.println(f);
+            }
+        }
+        else{
+            System.out.println("Lista Vazia!");
         }
     }
 }

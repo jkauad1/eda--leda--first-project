@@ -1,93 +1,97 @@
 package classes;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-public class Ordenacao {
+import interfaces.Ordenacao_IF;
 
-    public void bubbleSort (List<Filme> filmes){
-        for (int i = 0; i < filmes.size(); i++){
-            for (int j = 0; j < filmes.size() - 1; j++){
-                if (filmes.get(j).compareTo(filmes.get( j + 1 )) > 0){
+public class Ordenacao implements Ordenacao_IF {
+
+    @Override
+    public void bubbleSort (Filme[] filmes){
+        for (int i = 0; i < filmes.length; i++){
+            for (int j = 0; j < filmes.length - 1; j++){
+                if (filmes[j].compareTo(filmes[j + 1]) > 0){
                     swap(filmes, j, j+1);
                 }
             }
         }
     }
 
-    private void swap(List<Filme> filmes, int a, int b){
-        Filme aux = filmes.get(a);
-        filmes.set(a, filmes.get(b));
-        filmes.set(b, aux);
+    private void swap(Filme[] filmes, int a, int b){
+        Filme aux = filmes[a];
+        filmes[a] = filmes[b];
+        filmes[b] = aux;
     }
-
-    public void insertionSort(List<Filme> filmes){
-        for (int i = 1; i < filmes.size(); i++){
-            Filme key = filmes.get(i);
+    @Override
+    public void insertionSort(Filme[] filmes){
+        for (int i = 1; i < filmes.length; i++){
+            Filme key = filmes[i];
             int j = i - 1;
 
-            while(j >= 0 && filmes.get(j).compareTo(key) > 0){
-                filmes.set(j+1, filmes.get(j));
+            while(j >= 0 && filmes[j].compareTo(key) > 0){
+                filmes[j+1] = filmes[j];
                 j = j - 1;
             }
-            filmes.set(j + 1, key);
+            filmes[j + 1] = key;
         }
     }
-
-    public void selectionSort(List<Filme> filmes){
-        int n = filmes.size();
+    @Override
+    public void selectionSort(Filme[] filmes){
+        int n = filmes.length;
         for (int i = 0; i < n - 1; i++) {
             int min = i;
             for(int j = i + 1; j < n; j++) {
-                if(filmes.get(j).getNota() < filmes.get(min).getNota()) {
+                if(filmes[j].getNota() < filmes[min].getNota()) {
                     min = j;
                 }
             }
             swap(filmes, i, min);
         }
     }
-
-    public void mergeSort(List<Filme> filmes){
-        int n = filmes.size();
+    @Override
+    public void mergeSort(Filme[] filmes){
+        int n = filmes.length;
         if  (n <= 1){
             return;
         }
         else {
-            int mid = filmes.size() / 2;
-            List<Filme> left = new ArrayList<>(filmes.subList(0, mid));
-            List<Filme> right = new ArrayList<>(filmes.subList(mid, n));
+            int mid = n / 2;
+            Filme[] left = new Filme[mid];
+            Filme[] right = new Filme[n - mid];
+
+            System.arraycopy(filmes, 0, left, 0, mid);
+            System.arraycopy(filmes, mid, right, 0, n - mid);
 
             mergeSort(left);
             mergeSort(right);
 
-            filmes.clear();
-            filmes.addAll(merge(left, right));
+            merge(filmes, left, right);
         }
 
     }
 
-    private List<Filme> merge(List<Filme> left, List<Filme> right){
-        int i = 0, j = 0;
-        List<Filme> result = new ArrayList<>();
+    private void merge(Filme[] filmes, Filme[] left, Filme[] right){
+        int i = 0, j = 0, k = 0;
 
-        while (i < left.size() && j < right.size()){
-            if(left.get(i).compareTo(right.get(j)) <= 0){
-                result.add(left.get(i++));
+        while (i < left.length && j < right.length){
+            if(left[i].compareTo(right[j]) <= 0){
+                filmes[k++] = left[i++];
             }
             else{
-                result.add(right.get(j++));
+                filmes[k++] = right[j++];
             }
         }
-        while (i < left.size()){
-            result.add(left.get(i++));
+        while (i < left.length){
+            filmes[k++] = left[i++];
         }
-        while (j < right.size()){
-            result.add(right.get(j++));
+        while (j < left.length){
+            filmes[k++] = right[j++];
         }
-
-        return result;
+    }
+    @Override
+    public void quickSort(Filme[] filmes){
+        quickSort(filmes, 0, filmes.length - 1);
     }
 
-    public void quickSort(List<Filme> filmes, int left, int right) {
+    public void quickSort(Filme[] filmes, int left, int right) {
+
         if (left < right) {
             int pivot = partition(filmes, left, right);
             quickSort(filmes, left, pivot - 1);
@@ -95,17 +99,22 @@ public class Ordenacao {
         }
     }
 
-    private int partition(List<Filme> filmes, int left, int right) {
-        int pivot = filmes.get(left).getNota();
+    @Override
+    public void quickSortRandom(Filme[] filmes){
+
+    }
+
+    private int partition(Filme[] filmes, int left, int right) {
+        int pivot = filmes[left].getNota();
         int i = left;
         int j = right;
 
         while (i < j) {
 
-            while (i <= right && filmes.get(i).getNota() >= pivot) {
+            while (i <= right && filmes[i].getNota() >= pivot) {
                 i++;
             }
-            while (j >= left && filmes.get(j).getNota() < pivot) {
+            while (j >= left && filmes[j].getNota() < pivot) {
                 j--;
             }
             if (i < j) {
@@ -116,32 +125,28 @@ public class Ordenacao {
         return j;
     }
 
-    public static void countingSort(List<Filme> filmes, List<Filme> filmesOrdenados, int notaMaxima){
-        List<Integer> listaAuxiliar = new ArrayList<>(Collections.nCopies(6, 0));
+    @Override
+    public void countingSort(Filme[] filmes) {
+        int maximo = 5;
 
-        for (int i = 0; i < filmes.size(); i++){
-            listaAuxiliar.add(0);
-        }
+        int[] listaAuxiliar = new int[maximo + 1];
+        Filme[] filmesCopia = filmes.clone();
 
         for (Filme filme : filmes) {
-            int nota = filme.getNota();
-            listaAuxiliar.set(nota, listaAuxiliar.get(nota) + 1);
+            listaAuxiliar[filme.getNota()]++;
         }
 
-        for (int i = 1; i <= 5; i++) {
-            listaAuxiliar.set(i, listaAuxiliar.get(i) + listaAuxiliar.get(i - 1));
+        for (int i = listaAuxiliar.length - 2; i >= 0; i--) {
+            listaAuxiliar[i] += listaAuxiliar[i + 1];
         }
 
-        for (int i = filmes.size() - 1; i >= 0; i--) {
-            Filme filme = filmes.get(i);
-            int nota = filme.getNota();
-            if (nota >= 1 && nota <= notaMaxima) {
-                int posicao = listaAuxiliar.get(nota) - 1;
-                filmesOrdenados.set(posicao, filme);
-                listaAuxiliar.set(nota, posicao);
-            }
+        for (int j = filmesCopia.length - 1; j >= 0; j--) {
+            int nota = filmesCopia[j].getNota();
+            filmes[listaAuxiliar[nota] - 1] = filmesCopia[j];
+            listaAuxiliar[nota]--;
         }
     }
 }
+
 
 
