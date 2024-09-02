@@ -112,6 +112,11 @@ public class Menu {
             return;
         }
 
+        if(!buscador.checaVetorOrdenado(filmes)){
+            System.out.println("Lista Desordenada, ordene primeiro!");
+            return;
+        }
+
         System.out.println("""
                             Selecione o método de busca que deseja usar:
                             1- Busca Linear iterativa.

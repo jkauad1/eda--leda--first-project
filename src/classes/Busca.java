@@ -3,10 +3,16 @@ package classes;
 import interfaces.Busca_IF;
 
 public class Busca implements Busca_IF {
-
     @Override
     public boolean checaVetorOrdenado(Filme[] filmes) {
-        return false;
+
+        for (int i = 0; i < filmes.length - 1; i++){
+
+            if (filmes[i + 1].compareTo(filmes[i]) < 0){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

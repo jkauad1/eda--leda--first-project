@@ -81,7 +81,7 @@ public class Ordenacao implements Ordenacao_IF {
         while (i < left.length){
             filmes[k++] = left[i++];
         }
-        while (j < left.length){
+        while (j < right.length){
             filmes[k++] = right[j++];
         }
     }
