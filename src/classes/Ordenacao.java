@@ -38,7 +38,7 @@ public class Ordenacao implements Ordenacao_IF {
         for (int i = 0; i < n - 1; i++) {
             int max = i;
             for(int j = i + 1; j < n; j++) {
-                if(filmes[j].getNota() > filmes[max].getNota()) {
+                if(filmes[j].compareTo(filmes[max]) < 0) {
                     max = j;
                 }
             }
