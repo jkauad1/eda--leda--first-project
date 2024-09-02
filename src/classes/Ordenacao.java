@@ -105,16 +105,16 @@ public class Ordenacao implements Ordenacao_IF {
     }
 
     private int partition(Filme[] filmes, int left, int right) {
-        int pivot = filmes[left].getNota();
+        Filme pivot = filmes[left];
         int i = left;
         int j = right;
 
         while (i < j) {
 
-            while (i <= right && filmes[i].getNota() >= pivot) {
+            while (i <= right && filmes[i].compareTo(pivot) <= 0) {
                 i++;
             }
-            while (j >= left && filmes[j].getNota() < pivot) {
+            while (j >= left && filmes[j].compareTo(pivot) > 0) {
                 j--;
             }
             if (i < j) {
