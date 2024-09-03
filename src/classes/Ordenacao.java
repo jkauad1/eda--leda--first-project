@@ -19,7 +19,6 @@ public class Ordenacao implements Ordenacao_IF {
         filmes[a] = filmes[b];
         filmes[b] = aux;
     }
-
     @Override
     public void insertionSort(Filme[] filmes){
         for (int i = 1; i < filmes.length; i++){
@@ -33,7 +32,6 @@ public class Ordenacao implements Ordenacao_IF {
             filmes[j + 1] = key;
         }
     }
-
     @Override
     public void selectionSort(Filme[] filmes){
         int n = filmes.length;
@@ -47,7 +45,6 @@ public class Ordenacao implements Ordenacao_IF {
             swap(filmes, i, max);
         }
     }
-
     @Override
     public void mergeSort(Filme[] filmes){
         int n = filmes.length;
@@ -88,13 +85,12 @@ public class Ordenacao implements Ordenacao_IF {
             filmes[k++] = right[j++];
         }
     }
-
     @Override
     public void quickSort(Filme[] filmes){
         quickSort(filmes, 0, filmes.length - 1);
     }
 
-    private void quickSort(Filme[] filmes, int left, int right) {
+    public void quickSort(Filme[] filmes, int left, int right) {
 
         if (left < right) {
             int pivot = partition(filmes, left, right);

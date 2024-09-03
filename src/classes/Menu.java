@@ -59,14 +59,13 @@ public class Menu {
 
         System.out.println("""
                             Selecione o método que deseja usar:
-                            1- BubbleSort
-                            2- InsertionSort
-                            3- SelectionSort
-                            4- MergeSort
-                            5- quickSort
-                            6- countingSort
-                            7- Restaurar sequência original
-                            """);
+                            1- BubbleSort.
+                            2- InsertionSort.
+                            3- SelectionSort.
+                            4- MergeSort.
+                            5- quickSort.
+                            6- countingSort.
+                            7- Restaurar sequência original.""");
 
         menu = leitor.nextInt();
 
@@ -117,43 +116,53 @@ public class Menu {
             return;
         }
 
-        System.out.println("""
+
+        label:
+        while(true){
+
+            System.out.println("""
                             Selecione o método de busca que deseja usar:
                             1- Busca Linear iterativa.
                             2- Busca Linear recursiva.
                             3- Busca Binária iterativa.
                             4- Busca Binária recursiva.
-                            """);
+                            5- Voltar ao menu principal.""");
 
-        menu = leitor.nextInt();
+            menu = leitor.nextInt();
 
-        System.out.println("Selecione a nota que deseja procurar: (1 - 5)");
-        int nota = leitor.nextInt();
-        Filme resultado = null;
+            if(menu == 5){
+                break label;
+            }
 
-        switch (menu){
-            case 1:
-                resultado = buscador.buscaLinear_iterativa(filmes, nota);
-                break;
-            case 2:
-                resultado = buscador.buscaLinear_recursiva(filmes, nota);
-                break;
-            case 3:
-                resultado = buscador.buscaBinaria_iterativa(filmes, nota);
-                break;
-            case 4:
-                resultado = buscador.buscaBinaria_recursiva(filmes, nota);
-                break;
-            default:
-                System.out.println("Número inválido, digite um dos números do menu.");
+            System.out.println("Selecione a nota que deseja procurar: (1 - 5)");
+            int nota = leitor.nextInt();
+            Filme resultado = null;
+
+            switch (menu){
+                case 1:
+                    resultado = buscador.buscaLinear_iterativa(filmes, nota);
+                    break;
+                case 2:
+                    resultado = buscador.buscaLinear_recursiva(filmes, nota);
+                    break;
+                case 3:
+                    resultado = buscador.buscaBinaria_iterativa(filmes, nota);
+                    break;
+                case 4:
+                    resultado = buscador.buscaBinaria_recursiva(filmes, nota);
+                    break;
+                default:
+                    System.out.println("Número inválido, digite um dos números do menu.");
+            }
+
+            if(resultado != null){
+                System.out.println("O filme encontrado é: " + resultado);
+            }
+            else{
+                System.out.println("Filme não encontrado!");
+            }
         }
 
-        if(resultado != null){
-            System.out.println("O filme encontrado é: " + resultado);
-        }
-        else{
-            System.out.println("Filme não encontrado!");
-        }
     }
 
     private static Filme[] geraFilmes() throws Exception {
