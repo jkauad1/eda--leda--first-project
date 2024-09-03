@@ -1,5 +1,6 @@
 package classes;
 import interfaces.Ordenacao_IF;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Ordenacao implements Ordenacao_IF {
 
@@ -87,24 +88,31 @@ public class Ordenacao implements Ordenacao_IF {
     }
     @Override
     public void quickSort(Filme[] filmes){
-        quickSort(filmes, 0, filmes.length - 1);
+        quickSort(filmes, 0, filmes.length - 1, false);
     }
 
-    public void quickSort(Filme[] filmes, int left, int right) {
+    public void quickSort(Filme[] filmes, int left, int right, boolean randomPivot) {
 
         if (left < right) {
-            int pivot = partition(filmes, left, right);
-            quickSort(filmes, left, pivot - 1);
-            quickSort(filmes, pivot + 1, right);
+            int pivot = partition(filmes, left, right, randomPivot);
+            quickSort(filmes, left, pivot - 1,randomPivot);
+            quickSort(filmes, pivot + 1, right, randomPivot);
         }
     }
 
     @Override
     public void quickSortRandom(Filme[] filmes){
+        quickSort(filmes, 0, filmes.length - 1, true);
 
     }
 
-    private int partition(Filme[] filmes, int left, int right) {
+    private int partition(Filme[] filmes, int left, int right, boolean randomPivot) {
+        if(randomPivot){
+            ThreadLocalRandom rand = ThreadLocalRandom.current();
+
+            int pivotIndex = left + rand.nextInt(right - left + 1);
+            swap(filmes, pivotIndex, right);
+        }
         Filme pivot = filmes[left];
         int i = left;
         int j = right;

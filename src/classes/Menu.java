@@ -63,9 +63,10 @@ public class Menu {
                             2- InsertionSort.
                             3- SelectionSort.
                             4- MergeSort.
-                            5- quickSort.
-                            6- countingSort.
-                            7- Restaurar sequência original.""");
+                            5- QuickSort.
+                            6- QuickSortRandom.
+                            7- CountingSort.
+                            8- Restaurar sequência original.""");
 
         menu = leitor.nextInt();
 
@@ -91,10 +92,14 @@ public class Menu {
                 System.out.println("Filmes ordenados com quickSort.");
                 break;
             case 6:
+                ordenador.quickSortRandom(filmes);
+                System.out.println("Filmes ordenados com quickSortRandom.");
+                break;
+            case 7:
                 ordenador.countingSort(filmes);
                 System.out.println("Filmes ordenados com CountingSort.");
                 break;
-            case 7:
+            case 8:
                 System.arraycopy(clone, 0, filmes, 0, clone.length);
                 System.out.println("Sequência original restaurada.");
                 break;
