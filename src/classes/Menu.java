@@ -2,7 +2,7 @@ package classes;
 
 import interfaces.Busca_IF;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Menu {
 
@@ -25,7 +25,8 @@ public class Menu {
                     4 - Printar filmes
                     5 - Encerrar programa.""");
 
-            int menu = leitor.nextInt();
+            menu = leitor.nextInt();
+
             switch (menu){
                 case 1:
                     filmes = geraFilmes();
@@ -40,7 +41,6 @@ public class Menu {
                 case 4:
                     printFilmes(filmes);
                     break;
-
                 default:
                     System.out.println("Número inválido, digite um dos números do menu.");
                     break;
@@ -154,13 +154,16 @@ public class Menu {
         else{
             System.out.println("Filme não encontrado!");
         }
-
     }
 
-    private static Filme[] geraFilmes() {
+    private static Filme[] geraFilmes() throws Exception {
         Scanner leitor = new Scanner(System.in);
         System.out.println("Informe quantos filmes você deseja gerar: ");
         int quantidadeDeFilmes = leitor.nextInt();
+
+        if(quantidadeDeFilmes < 0){
+            throw new Exception("Número inválido: A quantidade não pode ser negativa!");
+        }
 
         if (quantidadeDeFilmes == 0){
             return new Filme[0];
@@ -181,18 +184,13 @@ public class Menu {
 
     private static void printFilmes(Filme[] filmes){
 
-        if (isEmpty(filmes)){
+        if (isEmpty(filmes)) {
             System.out.println("Lista vazia, gere filmes primeiro!");
             return;
         }
 
-        if (filmes != null){
-            for (Filme f : filmes){
+        for (Filme f : filmes){
                 System.out.println(f);
-            }
-        }
-        else{
-            System.out.println("Lista Vazia!");
         }
     }
 }

@@ -3,8 +3,13 @@ package classes;
 import interfaces.Busca_IF;
 
 public class Busca implements Busca_IF {
+
     @Override
     public boolean checaVetorOrdenado(Filme[] filmes) {
+
+        if (filmes.length < 2){
+            return true;
+        }
 
         for (int i = 0; i < filmes.length - 1; i++){
 
@@ -17,9 +22,11 @@ public class Busca implements Busca_IF {
 
     @Override
     public Filme buscaLinear_iterativa(Filme[] filmes, int nota) throws Exception {
+
         if (nota < 0) {
             throw new Exception("Nota inválida: a nota não pode ser negativa.");
         }
+
         for (Filme f : filmes) {
             if (f.getNota() == nota) {
                 return f;
@@ -30,6 +37,7 @@ public class Busca implements Busca_IF {
 
     @Override
     public Filme buscaLinear_recursiva(Filme[] filmes, int nota) throws Exception {
+
         if (nota < 0) {
             throw new Exception("Nota inválida: a nota não pode ser negativa.");
         }
@@ -37,9 +45,11 @@ public class Busca implements Busca_IF {
     }
 
     private Filme buscaLinear_recursivaAux(Filme[] filmes, int nota, int indice) throws Exception {
+
         if (indice >= filmes.length) {
             return null; // Retorna null se o índice exceder o tamanho do vetor.
         }
+
         if (filmes[indice].getNota() == nota) {
             return filmes[indice];
         }
@@ -48,9 +58,11 @@ public class Busca implements Busca_IF {
 
     @Override
     public Filme buscaBinaria_iterativa(Filme[] filmes, int nota) throws Exception {
+
         if (nota < 0) {
             throw new Exception("Nota inválida: a nota não pode ser negativa.");
         }
+
         int inicio = 0;
         int fim = filmes.length - 1;
 
@@ -70,17 +82,21 @@ public class Busca implements Busca_IF {
 
     @Override
     public Filme buscaBinaria_recursiva(Filme[] filmes, int nota) throws Exception {
+
         if (nota < 0) {
             throw new Exception("Nota inválida: a nota não pode ser negativa.");
         }
+
         return buscaBinaria_recursivaAux(filmes, nota, 0, filmes.length - 1);
     }
 
 
     private Filme buscaBinaria_recursivaAux(Filme[] filmes, int nota, int inicio, int fim) throws Exception {
+
         if (inicio > fim) {
             return null;
         }
+
         int meio = (inicio + fim) / 2;
 
         if (filmes[meio].getNota() == nota) {
