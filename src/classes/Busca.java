@@ -110,6 +110,17 @@ public class Busca implements Busca_IF {
 
     @Override
     public Filme buscaLinear_iterativa_duasPontas(Filme[] filmes, int nota) throws Exception {
+
+        int indice = filmes.length;
+
+        for( int i = 0; i < (indice + 1) / 2; i++){
+            if(filmes[i].getNota() == nota){
+                return filmes[i];
+            }
+            if (filmes[indice - 1 - i].getNota() == nota){
+                return filmes[indice - 1 - i];
+            }
+        }
         return null;
     }
 }

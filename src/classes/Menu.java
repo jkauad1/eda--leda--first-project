@@ -4,6 +4,8 @@ import interfaces.Busca_IF;
 
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
+
 public class Menu {
 
     public static final Scanner leitor = new Scanner(System.in);
@@ -18,6 +20,7 @@ public class Menu {
 
         label:
         while (true){
+            sleep(500);
             System.out.println("""
                     1 - Gerar filmes.
                     2 - Ordenar filmes.
@@ -27,18 +30,22 @@ public class Menu {
 
             menu = leitor.nextInt();
 
+            sleep(500);
             switch (menu){
                 case 1:
                     filmes = geraFilmes();
                     clone = filmes.clone();
                     break;
                 case 2:
+                    sleep(500);
                     ordenaFilmes(filmes, clone, ordenador);
                     break;
                 case 3:
+                    sleep(500);
                     procurarFilmes(filmes, buscador);
                     break;
                 case 4:
+                    sleep(500);
                     printFilmes(filmes);
                     break;
                 default:
@@ -116,12 +123,6 @@ public class Menu {
             return;
         }
 
-        if(!buscador.checaVetorOrdenado(filmes)){
-            System.out.println("Lista Desordenada, ordene primeiro!");
-            return;
-        }
-
-
         label:
         while(true){
 
@@ -129,14 +130,22 @@ public class Menu {
                             Selecione o método de busca que deseja usar:
                             1- Busca Linear iterativa.
                             2- Busca Linear recursiva.
-                            3- Busca Binária iterativa.
-                            4- Busca Binária recursiva.
-                            5- Voltar ao menu principal.""");
+                            3= Busca Linear Duas Pontas.
+                            4- Busca Binária iterativa.
+                            5- Busca Binária recursiva.
+                            6- Voltar ao menu principal.""");
 
             menu = leitor.nextInt();
 
             if(menu == 5){
                 break label;
+            }
+
+            if (menu == 3 || menu == 4){
+                if(!buscador.checaVetorOrdenado(filmes)){
+                    System.out.println("Lista Desordenada, impossível usar busca binária! ordene primeiro!");
+                    continue;
+                }
             }
 
             System.out.println("Selecione a nota que deseja procurar: (1 - 5)");
@@ -151,9 +160,12 @@ public class Menu {
                     resultado = buscador.buscaLinear_recursiva(filmes, nota);
                     break;
                 case 3:
-                    resultado = buscador.buscaBinaria_iterativa(filmes, nota);
+                    resultado = buscador.buscaLinear_iterativa_duasPontas(filmes, nota);
                     break;
                 case 4:
+                    resultado = buscador.buscaBinaria_iterativa(filmes, nota);
+                    break;
+                case 5:
                     resultado = buscador.buscaBinaria_recursiva(filmes, nota);
                     break;
                 default:
@@ -204,7 +216,7 @@ public class Menu {
         }
 
         for (Filme f : filmes){
-                System.out.println(f);
+            System.out.println(f);
         }
     }
 }
