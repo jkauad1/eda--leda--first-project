@@ -32,11 +32,8 @@ public class PerformanceTest {
 
         // Testa para reversamente ordenada
         System.out.println("Reversamente Ordenada:");
-        List<Filme> filmesReverso = new ArrayList<>(Arrays.asList(filmes));
-        filmesReverso.sort(null);
-        Collections.reverse(filmesReverso);
-        filmes = filmesReverso.toArray(new Filme[0]);
-        medirTempoOrdenacao(filmes, ordenacao); // Testa a lista reversamente ordenada
+        Arrays.sort(filmes, Collections.reverseOrder());
+        medirTempoOrdenacao(filmes, ordenacao);
         //medirTempoBusca(filmes, buscador);
     }
 
@@ -46,7 +43,7 @@ public class PerformanceTest {
         // printFilmes(filmes); teste pra ve se ta funcionando
 
         // Mude o método
-        ordenacao.quickSort(filmes);
+        ordenacao.insertionSort(filmes);
 
         long tempoFinal = System.nanoTime();
         double tempoSegundos = (tempoFinal - tempoInicial) / 1000000000.0;
