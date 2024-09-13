@@ -182,7 +182,7 @@ public class Menu {
 
     }
 
-    private static Filme[] geraFilmes() throws Exception {
+    public static Filme[] geraFilmes() throws Exception {
         Scanner leitor = new Scanner(System.in);
         System.out.println("Informe quantos filmes você deseja gerar: ");
         int quantidadeDeFilmes = leitor.nextInt();
@@ -208,7 +208,7 @@ public class Menu {
         return filmes == null || filmes.length == 0;
     }
 
-    private static void printFilmes(Filme[] filmes){
+    public static void printFilmes(Filme[] filmes){
 
         if (isEmpty(filmes)) {
             System.out.println("Lista vazia, gere filmes primeiro!");

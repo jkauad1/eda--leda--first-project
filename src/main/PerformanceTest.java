@@ -2,63 +2,69 @@ package main;
 
 import classes.Filme;
 import classes.Ordenacao;
+import classes.Busca;
+import static classes.Menu.geraFilmes;
+import static classes.Menu.printFilmes;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
 public class PerformanceTest {
     public static void main(String[] args) throws Exception {
 
-        long tempoInicial;
         Ordenacao ordenacao = new Ordenacao();
+        //Busca buscador = new Busca();
 
-        Filme[] filmes;
-
-        filmes = geraFilmesInversamenteOrdenados();
-
-        tempoInicial = System.nanoTime();
-
-        ordenacao.countingSort(filmes);
-
-        System.out.println("Tempo (add inicio): " + (System.nanoTime() - tempoInicial) / 1000000000.0);
-    }
-
-    private static Filme[] geraFilmes() throws Exception {
-        Scanner leitor = new Scanner(System.in);
-        System.out.println("Informe quantos filmes você deseja gerar: ");
-        int quantidadeDeFilmes = leitor.nextInt();
-
-        if(quantidadeDeFilmes < 0){
-            throw new Exception("Número inválido: A quantidade não pode ser negativa!");
-        }
-
-        if (quantidadeDeFilmes == 0){
-            return new Filme[0];
-        }
-
-        Filme[] filmes = new Filme[quantidadeDeFilmes];
-
-        for (int i = 0; i < quantidadeDeFilmes; i++) {
-            filmes[i] = new Filme();
-        }
-
-        return filmes;
-    }
-
-    private static Filme[] geraFilmesOrdenados() throws Exception {
         Filme[] filmes = geraFilmes();
-        Arrays.sort(filmes, Comparator.comparing(Filme::getNota)); // Ordena com base na nota
-        return filmes;
+
+        // Testa para desordenada
+        System.out.println("Desordenada:");
+        medirTempoOrdenacao(filmes, ordenacao); // Testa a lista desordenada
+        //medirTempoBusca(filmes, buscador);
+
+        // Testa para ordenada
+        System.out.println("Ordenada:");
+        Arrays.sort(filmes);
+        medirTempoOrdenacao(filmes, ordenacao); // Testa a lista ordenada
+        //medirTempoBusca(filmes, buscador);
+
+        // Testa para reversamente ordenada
+        System.out.println("Reversamente Ordenada:");
+        List<Filme> filmesReverso = new ArrayList<>(Arrays.asList(filmes));
+        filmesReverso.sort(null);
+        Collections.reverse(filmesReverso);
+        filmes = filmesReverso.toArray(new Filme[0]);
+        medirTempoOrdenacao(filmes, ordenacao); // Testa a lista reversamente ordenada
+        //medirTempoBusca(filmes, buscador);
     }
 
-    private static Filme[] geraFilmesInversamenteOrdenados() throws Exception {
-        Filme[] filmes = geraFilmesOrdenados();
-        for (int i = 0; i < filmes.length / 2; i++) {
-            Filme temp = filmes[i];
-            filmes[i] = filmes[filmes.length - 1 - i];
-            filmes[filmes.length - 1 - i] = temp;
-        }
-        return filmes;
+    private static void medirTempoOrdenacao(Filme[] filmes, Ordenacao ordenacao) {
+        long tempoInicial = System.nanoTime();
+
+        // printFilmes(filmes); teste pra ve se ta funcionando
+
+        // Mude o método
+        ordenacao.quickSort(filmes);
+
+        long tempoFinal = System.nanoTime();
+        double tempoSegundos = (tempoFinal - tempoInicial) / 1000000000.0;
+
+        System.out.println("Tempo de Ordenação: " + tempoSegundos + " segundos");
+    }
+
+    private static void medirTempoBusca(Filme[] filmes, Busca busca) throws Exception {
+        long tempoInicial = System.nanoTime();
+
+        // printFilmes(filmes); teste pra ve se ta funcionando
+
+        // Mude o método
+        busca.buscaBinaria_iterativa(filmes, 4);
+
+        long tempoFinal = System.nanoTime();
+        double tempoSegundos = (tempoFinal - tempoInicial) / 1000000000.0;
+
+        System.out.println("Tempo de Busca: " + tempoSegundos + " segundos");
     }
 }

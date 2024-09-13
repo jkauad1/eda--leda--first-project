@@ -4,7 +4,7 @@ import interfaces.Filme_IF;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Filme implements Filme_IF {
+public class Filme implements Filme_IF, Comparable<Filme_IF> {
 
     private String nome;
     private int nota;
